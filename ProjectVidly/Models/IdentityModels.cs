@@ -20,10 +20,11 @@ namespace ProjectVidly.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        // Customer DBSet
+        public DbSet<Customer> Customers { get; set; }
+
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+            : base("DefaultConnection", throwIfV1Schema: false) { }
 
         public static ApplicationDbContext Create()
         {

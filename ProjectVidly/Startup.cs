@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(ProjectVidly.Startup))]
+
 namespace ProjectVidly
 {
     public partial class Startup

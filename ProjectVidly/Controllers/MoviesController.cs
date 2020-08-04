@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using ProjectVidly.Models;
+﻿using ProjectVidly.Models;
 using ProjectVidly.ViewModels;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace ProjectVidly.Controllers
 {
@@ -45,6 +42,5 @@ namespace ProjectVidly.Controllers
                 new Movie { Id = 2, Name = "A Silent Voice" }
             };
         }
-        
     }
 }
