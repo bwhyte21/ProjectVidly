@@ -22,6 +22,9 @@ namespace ProjectVidly.Models
     {
         // Customer DBSet
         public DbSet<Customer> Customers { get; set; }
+        
+        // Movie DBSet
+        public DbSet<Movie> Movies { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false) { }

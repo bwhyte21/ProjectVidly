@@ -191,9 +191,50 @@
     <Compile Include="Migrations\202008040402398_PopulateMembershipTypes.Designer.cs">
       <DependentUpon>202008040402398_PopulateMembershipTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008042020098_ApplyAnnotationsToCustomerName.cs" />
+    <Compile Include="Migrations\202008042020098_ApplyAnnotationsToCustomerName.Designer.cs">
+      <DependentUpon>202008042020098_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050514165_AddNameToMembershipType.cs" />
+    <Compile Include="Migrations\202008050514165_AddNameToMembershipType.Designer.cs">
+      <DependentUpon>202008050514165_AddNameToMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050517117_SetNameOfMembershipTypes.cs" />
+    <Compile Include="Migrations\202008050517117_SetNameOfMembershipTypes.Designer.cs">
+      <DependentUpon>202008050517117_SetNameOfMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050532058_AddBirthdateToCustomer.cs" />
+    <Compile Include="Migrations\202008050532058_AddBirthdateToCustomer.Designer.cs">
+      <DependentUpon>202008050532058_AddBirthdateToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050541359_AddDiscountRateToMembershipType.cs" />
+    <Compile Include="Migrations\202008050541359_AddDiscountRateToMembershipType.Designer.cs">
+      <DependentUpon>202008050541359_AddDiscountRateToMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050636195_AddMovie.cs" />
+    <Compile Include="Migrations\202008050636195_AddMovie.Designer.cs">
+      <DependentUpon>202008050636195_AddMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050638038_Genres.cs" />
+    <Compile Include="Migrations\202008050638038_Genres.Designer.cs">
+      <DependentUpon>202008050638038_Genres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050643067_PopulateMovies.cs" />
+    <Compile Include="Migrations\202008050643067_PopulateMovies.Designer.cs">
+      <DependentUpon>202008050643067_PopulateMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050730054_RestoreMoviesAndGenre.cs" />
+    <Compile Include="Migrations\202008050730054_RestoreMoviesAndGenre.Designer.cs">
+      <DependentUpon>202008050730054_RestoreMoviesAndGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008050731448_PopulateGenresAndMovies.cs" />
+    <Compile Include="Migrations\202008050731448_PopulateGenresAndMovies.Designer.cs">
+      <DependentUpon>202008050731448_PopulateGenresAndMovies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -204,6 +245,10 @@
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-ProjectVidly-20200731021735.mdf" />
+    <Content Include="App_Data\aspnet-ProjectVidly-20200731021735_log.ldf">
+      <DependentUpon>aspnet-ProjectVidly-20200731021735.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-flatly.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -265,10 +310,9 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Random.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -294,6 +338,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008040402398_PopulateMembershipTypes.resx">
       <DependentUpon>202008040402398_PopulateMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008042020098_ApplyAnnotationsToCustomerName.resx">
+      <DependentUpon>202008042020098_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050514165_AddNameToMembershipType.resx">
+      <DependentUpon>202008050514165_AddNameToMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050517117_SetNameOfMembershipTypes.resx">
+      <DependentUpon>202008050517117_SetNameOfMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050532058_AddBirthdateToCustomer.resx">
+      <DependentUpon>202008050532058_AddBirthdateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050541359_AddDiscountRateToMembershipType.resx">
+      <DependentUpon>202008050541359_AddDiscountRateToMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050636195_AddMovie.resx">
+      <DependentUpon>202008050636195_AddMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050638038_Genres.resx">
+      <DependentUpon>202008050638038_Genres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050643067_PopulateMovies.resx">
+      <DependentUpon>202008050643067_PopulateMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050730054_RestoreMoviesAndGenre.resx">
+      <DependentUpon>202008050730054_RestoreMoviesAndGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008050731448_PopulateGenresAndMovies.resx">
+      <DependentUpon>202008050731448_PopulateGenresAndMovies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

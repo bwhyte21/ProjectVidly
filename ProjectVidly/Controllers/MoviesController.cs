@@ -1,21 +1,48 @@
 ﻿using ProjectVidly.Models;
 using ProjectVidly.ViewModels;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ProjectVidly.Controllers
 {
     public class MoviesController : Controller
     {
+        // DB context to access DB.
+        private readonly ApplicationDbContext _context;
+        
+        // Inject obj.
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+        
+        // Dispose of obj after use.
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
+        // GET: Movies
         public ViewResult Index()
         {
-            var movies = GetMovies();
+            // Get list of movies.
+            var movies = _context.Movies.Include(m => m.Genre).ToList();
 
             return View(movies);
         }
 
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
 
-        // GET: Movies
+            if (movie == null) { return HttpNotFound(); }
+
+            return View(movie);
+        }
+
+        // GET: Movies/Random
         public ActionResult Random()
         {
             var movie = new Movie() { Name = "Gantz!" };
@@ -31,16 +58,6 @@ namespace ProjectVidly.Controllers
             };
 
             return View(viewModel);
-        }
-
-        // Get list of movies.
-        private static IEnumerable<Movie> GetMovies()
-        {
-            return new List<Movie>
-            {
-                new Movie { Id = 1, Name = "Gantz!" },
-                new Movie { Id = 2, Name = "A Silent Voice" }
-            };
         }
     }
 }
