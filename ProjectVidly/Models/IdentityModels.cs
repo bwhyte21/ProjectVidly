@@ -26,6 +26,12 @@ namespace ProjectVidly.Models
         // Movie DBSet
         public DbSet<Movie> Movies { get; set; }
 
+        // MembershipType DBSet
+        public DbSet<MembershipType> MembershipTypes { get; set; }
+
+        // Genre DBSet
+        public DbSet<Genre> Genres { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false) { }
 
