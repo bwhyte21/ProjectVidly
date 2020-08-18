@@ -21,3 +21,16 @@
 input,
 select,
 textarea { max-width: 280px; }
+
+/* Field validation customization */
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: 2px solid red;
+}
+
+.validation-summary-errors {
+    color: red;
+}

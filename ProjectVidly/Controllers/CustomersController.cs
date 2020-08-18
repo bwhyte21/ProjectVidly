@@ -16,7 +16,7 @@ namespace ProjectVidly.Controllers
         {
             _context = new ApplicationDbContext();
         }
-        
+
         // Dispose of obj after use.
         protected override void Dispose(bool disposing)
         {
@@ -28,14 +28,28 @@ namespace ProjectVidly.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
-            return View("CustomerForm",viewModel);
+            return View("CustomerForm", viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            // If ModelState is not valid, return customer form
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.Id == 0)
             {
                 _context.Customers.Add(customer);
@@ -48,10 +62,10 @@ namespace ProjectVidly.Controllers
                 customerInDb.MembershipTypeId = customer.MembershipTypeId;
                 customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
             }
-            
+
             // Persist modification changes
             _context.SaveChanges();
-            
+
             return RedirectToAction("Index", "Customers");
         }
 
@@ -64,28 +78,39 @@ namespace ProjectVidly.Controllers
             return View(customers);
         }
 
-        public ActionResult Details(int id)
-        {
-            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
-
-            if (customer == null) { return HttpNotFound(); }
-
-            return View(customer);
-        }
 
         public ActionResult Edit(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if (customer == null) { return HttpNotFound(); }
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
 
             var viewModel = new CustomerFormViewModel
             {
                 Customer = customer,
                 MembershipTypes = _context.MembershipTypes.ToList()
             };
-            
+
             return View("CustomerForm", viewModel);
         }
+
+        #region Old Code
+
+        public ActionResult Details(int id)
+        {
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customer);
+        }
+
+        #endregion
     }
 }

@@ -231,12 +231,21 @@
     <Compile Include="Migrations\202008050731448_PopulateGenresAndMovies.Designer.cs">
       <DependentUpon>202008050731448_PopulateGenresAndMovies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008180408274_UpdateMembershipType.cs" />
+    <Compile Include="Migrations\202008180408274_UpdateMembershipType.Designer.cs">
+      <DependentUpon>202008180408274_UpdateMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008180505260_UpdateMovieFormVM.cs" />
+    <Compile Include="Migrations\202008180505260_UpdateMovieFormVM.Designer.cs">
+      <DependentUpon>202008180505260_UpdateMovieFormVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MemberAgeRequirement.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -372,6 +381,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008050731448_PopulateGenresAndMovies.resx">
       <DependentUpon>202008050731448_PopulateGenresAndMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008180408274_UpdateMembershipType.resx">
+      <DependentUpon>202008180408274_UpdateMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008180505260_UpdateMovieFormVM.resx">
+      <DependentUpon>202008180505260_UpdateMovieFormVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
