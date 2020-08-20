@@ -7,6 +7,7 @@ using System.Web.Http;
 using AutoMapper;
 using ProjectVidly.Dtos;
 using ProjectVidly.Models;
+using System.Data.Entity;
 
 namespace ProjectVidly.Controllers.Api
 {
@@ -14,6 +15,7 @@ namespace ProjectVidly.Controllers.Api
     {
         private readonly ApplicationDbContext _context;
 
+        // CTOR
         public CustomersController()
         {
             _context = new ApplicationDbContext();
@@ -23,7 +25,11 @@ namespace ProjectVidly.Controllers.Api
         // GET /api/customers
         public IHttpActionResult GetCustomers()
         {
-            var customerDtoList = _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customerDtoList = _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
+
             return Ok(customerDtoList);
         }
 

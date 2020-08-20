@@ -28,10 +28,7 @@ namespace ProjectVidly.Controllers
         // GET: Movies
         public ViewResult Index()
         {
-            // Get list of movies.
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
-
-            return View(movies);
+            return View();
         }
 
         // Summon New Movie Form

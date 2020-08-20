@@ -7,6 +7,7 @@ using System.Web.Http;
 using AutoMapper;
 using ProjectVidly.Dtos;
 using ProjectVidly.Models;
+using System.Data.Entity;
 
 namespace ProjectVidly.Controllers.Api
 {
@@ -21,7 +22,10 @@ namespace ProjectVidly.Controllers.Api
 
         public IEnumerable<MovieDto> GetMovies()
         {
-            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            return _context.Movies
+                .Include(m => m.Genre)
+                .ToList()
+                .Select(Mapper.Map<Movie, MovieDto>);
         }
 
         public IHttpActionResult GetMovie(int id)

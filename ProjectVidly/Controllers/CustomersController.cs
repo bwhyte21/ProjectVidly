@@ -72,10 +72,7 @@ namespace ProjectVidly.Controllers
         // GET: Customers
         public ViewResult Index()
         {
-            // Get list of customers.
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-
-            return View(customers);
+            return View();
         }
 
 
