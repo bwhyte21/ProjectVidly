@@ -1,8 +1,8 @@
 ﻿using ProjectVidly.Models;
+using ProjectVidly.ViewModels;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using ProjectVidly.ViewModels;
 
 namespace ProjectVidly.Controllers
 {
