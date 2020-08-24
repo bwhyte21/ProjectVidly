@@ -5,7 +5,17 @@ namespace ProjectVidly.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required] [Display(Name = "Email")] public string Email { get; set; }
+        [Required]
+        [Display(Name = "Email")] 
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Driver's License")]
+        public string DriversLicense { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Phone { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -25,7 +35,7 @@ namespace ProjectVidly.Models
     {
         [Required] public string Provider { get; set; }
 
-        [Required] [Display(Name = "Code")] public string Code { get; set; }
+        [Required][Display(Name = "Code")] public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]
@@ -36,7 +46,7 @@ namespace ProjectVidly.Models
 
     public class ForgotViewModel
     {
-        [Required] [Display(Name = "Email")] public string Email { get; set; }
+        [Required][Display(Name = "Email")] public string Email { get; set; }
     }
 
     public class LoginViewModel
@@ -71,6 +81,14 @@ namespace ProjectVidly.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Driver's License")]
+        public string DriversLicense { get; set; }
+        
+        [Required]
+        [StringLength(50)]
+        public string Phone { get; set; }
     }
 
     public class ResetPasswordViewModel

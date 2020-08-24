@@ -55,9 +55,9 @@ namespace ProjectVidly
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "816337059176523",
+               appSecret: "ed5f7d04336325cc29bda92d005b2b15");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

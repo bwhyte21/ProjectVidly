@@ -28,10 +28,11 @@ namespace ProjectVidly.Controllers
         // GET: Movies
         public ViewResult Index()
         {
-            return View();
+            return View(User.IsInRole(RoleName.CanManageMovies) ? "List" : "ReadOnlyList");
         }
 
         // Summon New Movie Form
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var genres = _context.Genres.ToList();
@@ -45,6 +46,7 @@ namespace ProjectVidly.Controllers
         }
 
         // Summon Movie Form for editing
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
