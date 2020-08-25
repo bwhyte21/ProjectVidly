@@ -28,6 +28,7 @@ namespace ProjectVidly.Controllers
         // GET: Movies
         public ViewResult Index()
         {
+            // What user sees depending on their role as admin | user
             return View(User.IsInRole(RoleName.CanManageMovies) ? "List" : "ReadOnlyList");
         }
 
