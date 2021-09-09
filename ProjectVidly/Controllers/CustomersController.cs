@@ -1,7 +1,9 @@
-﻿using ProjectVidly.Models;
+﻿using System.Collections.Generic;
+using ProjectVidly.Models;
 using ProjectVidly.ViewModels;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web.Mvc;
 
 namespace ProjectVidly.Controllers
@@ -73,6 +75,15 @@ namespace ProjectVidly.Controllers
         // GET: Customers
         public ViewResult Index()
         {
+            // Memory Caching. (use only after performance profiling was done to deem this necessary)
+            //if (MemoryCache.Default["Genres"] == null)
+            //{
+                // With every item we store in a cache, we use a key to access it.
+                //MemoryCache.Default["Genres"] = _context.Genres.ToList();
+            //}
+
+            //var genres = MemoryCache.Default["Genres"] as IEnumerable<Genre>;
+
             return View();
         }
 
