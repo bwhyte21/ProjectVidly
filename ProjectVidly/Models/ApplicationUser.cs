@@ -26,27 +26,4 @@ namespace ProjectVidly.Models
             return userIdentity;
         }
     }
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        // Customer DBSet
-        public DbSet<Customer> Customers { get; set; }
-        
-        // Movie DBSet
-        public DbSet<Movie> Movies { get; set; }
-
-        // MembershipType DBSet
-        public DbSet<MembershipType> MembershipTypes { get; set; }
-
-        // Genre DBSet
-        public DbSet<Genre> Genres { get; set; }
-
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false) { }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }
 }

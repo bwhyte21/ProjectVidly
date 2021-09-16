@@ -13,7 +13,7 @@ namespace ProjectVidly.Controllers
         // DB context to access database.
         private readonly ApplicationDbContext _context;
 
-        // Inject obj.
+        // Dependency Injection.
         public CustomersController()
         {
             _context = new ApplicationDbContext();
