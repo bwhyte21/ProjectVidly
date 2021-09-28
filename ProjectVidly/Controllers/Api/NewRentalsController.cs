@@ -31,15 +31,37 @@ namespace ProjectVidly.Controllers.Api
         [HttpPost]
         public IHttpActionResult CreateNewRentals(NewRentalDto newRental)
         {
-            // Using single, so if any malicious users toss in a fake id, they get a vague response in return.
+            // If any malicious users toss in a fake id, they will receive a BadRequest response in return.
+            //var customer = _context.Customers.SingleOrDefault(c => c.Id == newRental.CustomerId); // Useful for public api, we will use the latter since this is an internal api.
             var customer = _context.Customers.Single(c => c.Id == newRental.CustomerId);
 
             // This style translates the clause into a Sql statement that uses the IN clause.
-            var movies = _context.Movies.Where(m => newRental.MovieIds.Contains(m.Id));
+            /*
+             * example:
+             * SELECT *
+             * FROM Movies
+             * WHERE Id IN (1, 2, 3)
+             */
+            var movies = _context.Movies.Where(m => newRental.MovieIds.Contains(m.Id)).ToList();
 
+            // One or more of the movies were not loaded..
+            // Also to prevent malicious calls.
+            if (movies.Count != newRental.MovieIds.Count)
+            {
+                return BadRequest("One or more Movie Ids are invalid.");
+            }
             
             foreach (var movie in movies)
             {
+                // Check number count.
+                if (movie.NumberAvailable == 0)
+                {
+                    return BadRequest("Movie is not available.");
+                }
+
+                // Decrease number of movies available per movie rented.
+                movie.NumberAvailable--;
+
                 // ForEach movie, we create a rental object.
                 var rental = new Rental
                 {

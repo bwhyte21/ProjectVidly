@@ -23,12 +23,18 @@ namespace ProjectVidly.Controllers.Api
 
         // Get list of customers
         // GET /api/customers
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers(string query = null) // string query is a filter for api
         {
-            var customerDtoList = _context.Customers
-                .Include(c => c.MembershipType)
-                .ToList()
-                .Select(Mapper.Map<Customer, CustomerDto>);
+            // customers query shorthand.
+            var customersQuery = _context.Customers.Include(c => c.MembershipType);
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                // Dynamically modify query based on filter.
+                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+            }
+
+            var customerDtoList = customersQuery.ToList().Select(Mapper.Map<Customer, CustomerDto>);
 
             return Ok(customerDtoList);
         }
