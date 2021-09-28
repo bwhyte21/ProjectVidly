@@ -10,14 +10,15 @@
     <div class="form-group">
         <label>Customer</label>
         <div class="tt-container">
-            <input id="customer" type="text" value="" class="form-control"/>
+            @* jQuery validation plugin looks for name and custom attributes that start with data-rule-*@
+            <input id="customer" name="customer" data-rule-validCustomer="true" type="text" value="" class="form-control" required/>
         </div>
     </div>
 
     <div class="form-group">
         <label>Movie</label>
         <div class="tt-container">
-            <input id="movie" type="text" value="" class="form-control"/>
+            <input id="movie" name="movie" data-rule-hasMovie="true" required type="text" value="" class="form-control"/>
         </div>
     </div>
 
@@ -32,10 +33,12 @@
 
 @section scripts
 {
+    @*Add validations where we want it*@
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         //Example at https://twitter.github.io/typeahead.js/examples/#remote 
         $(document).ready(function() {
-            const vm = {
+            var vm = {
                 movieIds: []
             };
 
@@ -90,22 +93,38 @@
                 vm.movieIds.push(movie.id);
             });
 
-            /* Rental Submit */
-            $("#newRental").submit(function(e) {
-                // Keep submit from sending html form.
-                e.preventDefault();
+            /* Custom jQuery validator(s) */
+            $.validator.addMethod("validCustomer", function() { return vm.customerId && vm.customerId !== 0; }, "Please select a valid customer.");
+            $.validator.addMethod("hasMovie", function() { return vm.movieIds.length > 0; }, "Please select at least one movie.");
 
-                $.ajax({
-                        url: "/api/newRentals",
-                        method: "post",
-                        data: vm
-                    })
-                    .done(function() {
-                        toastr.success("Rental successfully recorded.");
-                    })
-                    .fail(function() {
-                        toastr.success("Something unexpected happened.");
-                    });
+            /* Rental Submit */
+            /* Reference the form to validate it. */
+            var validatorObj = $("#newRental").validate({
+                submitHandler: function() {
+                    $.ajax({
+                            url: "/api/newRentals",
+                            method: "post",
+                            data: vm
+                        })
+                        .done(function() {
+                            toastr.success("Rental successfully recorded.");
+
+                            // clear input fields and list items.
+                            $("#customer").typeahead("val", "");
+                            $("#movie").typeahead("val", "");
+                            $("#movies").empty();
+
+                            // reset view model.
+                            vm = { movieIds: [] };
+
+                            // reset the state of the form, in terms of validation.
+                            validatorObj.resetForm();
+                        })
+                        .fail(function() { toastr.success("Something unexpected happened."); });
+
+                    // Keep submit from being submitted normally. (e.preventDefault())
+                    return false;
+                }
             });
         });
     </script>

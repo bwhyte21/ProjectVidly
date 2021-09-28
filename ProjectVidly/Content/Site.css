@@ -14,20 +14,25 @@
    will truncate terms that are too long to fit in the left column 
 */
 
-.dl-horizontal dt { white-space: normal; }
+.dl-horizontal dt {
+    white-space: normal;
+}
 
 /* Set width on the form input elements since they're 100% wide by default */
 
 input,
 select,
-textarea { max-width: 280px; }
+textarea {
+    max-width: 280px;
+}
 
 /* Field validation customization */
-.field-validation-error {
+
+.field-validation-error, label.error {
     color: red;
 }
 
-.input-validation-error {
+.input-validation-error, input.error {
     border: 2px solid red;
 }
 
