@@ -452,6 +452,7 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="AppSettings.config" />
     <None Include="Properties\PublishProfiles\ProjectVidlyLive - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Testing.pubxml" />
     <None Include="Properties\PublishProfiles\VidlyDeploy.pubxml" />
