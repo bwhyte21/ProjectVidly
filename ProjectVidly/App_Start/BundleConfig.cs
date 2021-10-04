@@ -32,6 +32,8 @@ namespace ProjectVidly
                 "~/Content/datatables/css/datatables.bootstrap.css",
                 "~/Content/typeahead.css",
                 "~/Content/toastr.css",
+                "~/Content/bootstrap-theme-custom.css",
+                "~/Content/typeahead-custom.css",
                 "~/Content/site.css"));
         }
     }
