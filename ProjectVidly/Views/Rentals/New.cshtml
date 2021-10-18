@@ -1,0 +1,131 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "New Rental Form";
+}
+
+<h2>New Rental Form</h2>
+
+<form id="newRental">
+    <div class="form-group">
+        <label>Customer</label>
+        <div class="tt-container">
+            @* jQuery validation plugin looks for name and custom attributes that start with data-rule-*@
+            <input id="customer" name="customer" data-rule-validCustomer="true" type="text" value="" class="form-control" required/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Movie</label>
+        <div class="tt-container">
+            <input id="movie" name="movie" data-rule-hasMovie="true" required type="text" value="" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <ul id="movies" class="list-group"></ul>
+        </div>
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+@section scripts
+{
+    @*Add validations where we want it*@
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //Example at https://twitter.github.io/typeahead.js/examples/#remote 
+        $(document).ready(function() {
+            var vm = {
+                movieIds: []
+            };
+
+            /* Customers typeahead */
+            const customers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/customers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#customer').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                name: 'customers',
+                display: 'name',
+                source: customers
+            }).on("typeahead:select", function(e, customer) {
+                // Send customer to web api.
+                vm.customerId = customer.id;
+            });
+
+            /* Movies typeahead */
+
+            const movies = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/movies?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#movie').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                name: 'movies',
+                display: 'name',
+                source: movies
+            }).on("typeahead:select", function(e, movie) {
+                // Send movie to list in ul for viewing.
+                $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+
+                // clear the text box after the selection. Use the method from the typeahead plugin.
+                $("#movie").typeahead("val", "");
+
+                // send movie to web api (vm has been prepped to accept movie ids in an array).
+                vm.movieIds.push(movie.id);
+            });
+
+            /* Custom jQuery validator(s) */
+            $.validator.addMethod("validCustomer", function() { return vm.customerId && vm.customerId !== 0; }, "Please select a valid customer.");
+            $.validator.addMethod("hasMovie", function() { return vm.movieIds.length > 0; }, "Please select at least one movie.");
+
+            /* Rental Submit */
+            /* Reference the form to validate it. */
+            var validatorObj = $("#newRental").validate({
+                submitHandler: function() {
+                    $.ajax({
+                            url: "/api/newRentals",
+                            method: "post",
+                            data: vm
+                        })
+                        .done(function() {
+                            toastr.success("Rental successfully recorded.");
+
+                            // clear input fields and list items.
+                            $("#customer").typeahead("val", "");
+                            $("#movie").typeahead("val", "");
+                            $("#movies").empty();
+
+                            // reset view model.
+                            vm = { movieIds: [] };
+
+                            // reset the state of the form, in terms of validation.
+                            validatorObj.resetForm();
+                        })
+                        .fail(function() { toastr.success("Something unexpected happened."); });
+
+                    // Keep submit from being submitted normally. (e.preventDefault())
+                    return false;
+                }
+            });
+        });
+    </script>
+}
