@@ -1,6 +1,6 @@
 # ProjectVidly
 
-* A secure video rental application created to using ASP.NET MVC 5.
+* A secure video rental application created using ASP.NET MVC 5.
 
 This project:
 * [x] Was implemented using CRUD operations
